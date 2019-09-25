@@ -2,7 +2,7 @@
 
 ## Requirements
 
-1. Android NDK r19 or up
+1. Android NDK r20 or up
 
 ## Building
 
