@@ -45,7 +45,7 @@ function archive {
 }
 
 function build_for {
-	rm -f ./libsocket++_$1.a *.o
+	rm -f ./libsocket++_$1.a ./*.o
 
 	compile $2 -x c -c -O2 -fomit-frame-pointer $SRCDIR/libunixsocket.c -o ./libunixsocket.c.o
 	for SOURCE in $SRCDIR/*.cpp; do
