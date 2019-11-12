@@ -11,7 +11,7 @@ using namespace std;
 namespace libsocket {
 	stream_client_socket::stream_client_socket() : shut_rd(false), shut_wr(false) {}
 
-	ssize_t stream_client_socket::send(const void* buf, size_t len, int flags) {
+	ssize_t stream_client_socket::send(const void *buf, size_t len, int flags) {
 		if (buf == NULL || len == 0) {
 			throw socket_exception("Either buffer or length is NULL");
 		}
@@ -28,7 +28,7 @@ namespace libsocket {
 		return sent;
 	}
 
-	ssize_t stream_client_socket::recv(void* buf, size_t len, int flags) {
+	ssize_t stream_client_socket::recv(void *buf, size_t len, int flags) {
 		if (buf == NULL || len == 0) {
 			throw socket_exception("Either buffer or length is NULL");
 		}
@@ -82,7 +82,7 @@ namespace libsocket {
 		}
 	}
 
-	stream_client_socket& operator<<(stream_client_socket& sock, const char* str) {
+	stream_client_socket &operator<<(stream_client_socket &sock, const char *str) {
 		if (sock.fd == -1) {
 			throw socket_exception("Socket is not connected");
 		}
@@ -98,7 +98,7 @@ namespace libsocket {
 		return sock;
 	}
 
-	stream_client_socket& operator<<(stream_client_socket& sock, const string& str) {
+	stream_client_socket &operator<<(stream_client_socket &sock, const string &str) {
 		if (sock.fd == -1) {
 			throw socket_exception("Socket is not connected");
 		}
@@ -114,7 +114,7 @@ namespace libsocket {
 		return sock;
 	}
 
-	stream_client_socket& operator>>(stream_client_socket& sock, string& dest) {
+	stream_client_socket &operator>>(stream_client_socket &sock, string &dest) {
 		if (sock.fd == -1) {
 			throw socket_exception("Socket is not connected");
 		}

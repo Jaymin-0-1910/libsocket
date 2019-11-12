@@ -9,7 +9,7 @@
 #define LIBSOCKET_READ  1
 #define LIBSOCKET_WRITE 2
 
-int create_socket(const char* path, int flags) {
+int create_socket(const char *path, int flags) {
 	if (path == NULL) {
 		return -1;
 	}
@@ -64,7 +64,7 @@ int shutdown_socket(int fd, int method) {
 	return 0;
 }
 
-int create_server_socket(const char* path, int flags) {
+int create_server_socket(const char *path, int flags) {
 	if (path == NULL) {
 		return -1;
 	}

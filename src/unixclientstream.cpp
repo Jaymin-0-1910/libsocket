@@ -7,15 +7,15 @@ using namespace std;
 namespace libsocket {
 	unix_stream_client::unix_stream_client() {}
 
-	unix_stream_client::unix_stream_client(const char* path, int flags) {
+	unix_stream_client::unix_stream_client(const char *path, int flags) {
 		connect(path, flags);
 	}
 
-	unix_stream_client::unix_stream_client(const string& path, int flags) {
+	unix_stream_client::unix_stream_client(const string &path, int flags) {
 		connect(path, flags);
 	}
 
-	void unix_stream_client::connect(const char* path, int flags) {
+	void unix_stream_client::connect(const char *path, int flags) {
 		if (path == NULL) {
 			throw socket_exception("Given path is NULL");
 		}
@@ -31,7 +31,7 @@ namespace libsocket {
 		shut_wr = false;
 	}
 
-	void unix_stream_client::connect(const string& path, int flags) {
+	void unix_stream_client::connect(const string &path, int flags) {
 		connect(path.c_str(), flags);
 	}
 }
