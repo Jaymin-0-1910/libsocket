@@ -23,14 +23,16 @@ Function Build {
 		$Archiver
 	)
 
-	cmd /C "$Compiler" -x c -c -O2 -fomit-frame-pointer "$SrcDir\libunixsocket.c" -o ".\libunixsocket.c.o"
-
-	Get-ChildItem -File -Name -Filter "*.cpp" -Path "$SrcDir" | ForEach-Object {
-		cmd /C "$Compiler" -c -O2 -fno-rtti -fomit-frame-pointer "$SrcDir\$_" -I "$SrcDir\include" -o ".\$_.o"
+	Get-ChildItem -File -Name -Include @("*.c", "*.cpp") -Path "$SrcDir" | ForEach-Object {
+		if ("$_" -like "*.c") {
+			cmd /C "$Compiler" -x c -c -O2 -fomit-frame-pointer "$SrcDir\$_" -o ".\$_.o"
+		} else {
+			cmd /C "$Compiler" -c -O2 -fno-rtti -fomit-frame-pointer "$SrcDir\$_" -o ".\$_.o"
+		}
 	}
-	cmd /C "$Archiver" -rcs ".\libsocket++_$Arch.a" @(Get-ChildItem -File -Name -Filter ".\*.o") #NOTE: I really don't like the way @(...) is used here, I'd rather want to use wildcard here as well
+	cmd /C "$Archiver" -rcs ".\libsocket++_$Arch.a" @(Get-ChildItem -File -Name -Include ".\*.o") #NOTE: I really don't like the way @(...) is used here, I'd rather want to use wildcard here as well. This line really pisses me off.
 
-	Remove-Item -Force -Filter "*.o" -Path ".\*"
+	Remove-Item -Force -Include "*.o" -Path ".\*"
 }
 
 Build -Arch "arm" -Compiler "$ARMCompiler" -Archiver "$ARMArchiver" *>>"$LogFile"
