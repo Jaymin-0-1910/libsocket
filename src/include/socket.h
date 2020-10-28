@@ -23,7 +23,7 @@ namespace libsocket {
 	class socket {
 		public:
 			socket();
-			socket(const socket&) = delete;
+			socket(const socket &) = delete;
 			socket(socket &&other);
 			virtual ~socket();
 
@@ -48,7 +48,7 @@ namespace libsocket {
 	class stream_client_socket : public virtual socket {
 		public:
 			stream_client_socket();
-			stream_client_socket(const stream_client_socket&) = delete;
+			stream_client_socket(const stream_client_socket &) = delete;
 			stream_client_socket(stream_client_socket &&other)
 					: socket(std::move(other)), shut_rd(false), shut_wr(false) {}
 

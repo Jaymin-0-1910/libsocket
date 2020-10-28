@@ -13,37 +13,37 @@ namespace libsocket {
 
 	ssize_t stream_client_socket::send(const void *buf, size_t len, int flags) {
 		if (buf == NULL || len == 0) {
-			throw socket_exception("Either buffer or length is NULL");
+			throw socket_exception("Null buffer/length given");
 		}
 		if (fd == -1) {
-			throw socket_exception("Socket is not connected");
+			throw socket_exception("Socket not connected");
 		}
 		if (shut_wr) {
-			throw socket_exception("Socket has already been shut down");
+			throw socket_exception("Socket already shut down");
 		}
 		ssize_t sent = ::send(fd, buf, len, flags);
 		if (sent == -1) {
-			throw socket_exception("Could not write to socket");
+			throw socket_exception("Error writing to socket");
 		}
 		return sent;
 	}
 
 	ssize_t stream_client_socket::recv(void *buf, size_t len, int flags) {
 		if (buf == NULL || len == 0) {
-			throw socket_exception("Either buffer or length is NULL");
+			throw socket_exception("Null buffer/length given");
 		}
 		if (fd == -1) {
-			throw socket_exception("Socket is not connected");
+			throw socket_exception("Socket not connected");
 		}
 		if (shut_rd) {
-			throw socket_exception("Socket has already been shut down");
+			throw socket_exception("Socket already shut down");
 		}
 
 		memset(buf, 0, len);
 
 		ssize_t recvd = ::recv(fd, buf, len, flags);
 		if (recvd == -1) {
-			throw socket_exception("Could not read from socket");
+			throw socket_exception("Error reading from socket");
 		}
 		return recvd;
 	}
@@ -72,7 +72,7 @@ namespace libsocket {
 		}
 
 		if (::shutdown(fd, _method) < 0) {
-			throw socket_exception("Could not shutdown socket");
+			throw socket_exception("Error shutting socket down");
 		}
 		if (method & LIBSOCKET_READ) {
 			shut_rd = true;
@@ -84,42 +84,42 @@ namespace libsocket {
 
 	stream_client_socket &operator<<(stream_client_socket &sock, const char *str) {
 		if (sock.fd == -1) {
-			throw socket_exception("Socket is not connected");
+			throw socket_exception("Socket not connected");
 		}
 		if (sock.shut_wr) {
-			throw socket_exception("Socket has already been shut down");
+			throw socket_exception("Socket already shut down");
 		}
 		if (str == NULL) {
-			throw socket_exception("Given string is NULL");
+			throw socket_exception("Null string given");
 		}
 		if (write(sock.fd, str, strlen(str)) == -1) {
-			throw socket_exception("Could not write to socket");
+			throw socket_exception("Error writing to socket");
 		}
 		return sock;
 	}
 
 	stream_client_socket &operator<<(stream_client_socket &sock, const string &str) {
 		if (sock.fd == -1) {
-			throw socket_exception("Socket is not connected");
+			throw socket_exception("Socket not connected");
 		}
 		if (sock.shut_wr) {
-			throw socket_exception("Socket has already been shut down");
+			throw socket_exception("Socket already shut down");
 		}
 		if (str.empty()) {
-			throw socket_exception("Givent string is null");
+			throw socket_exception("Null string given");
 		}
 		if (write(sock.fd, str.c_str(), str.size()) == -1) {
-			throw socket_exception("Could not write to socket");
+			throw socket_exception("Error writing to socket");
 		}
 		return sock;
 	}
 
 	stream_client_socket &operator>>(stream_client_socket &sock, string &dest) {
 		if (sock.fd == -1) {
-			throw socket_exception("Socket is not connected");
+			throw socket_exception("Socket not connected");
 		}
 		if (sock.shut_rd) {
-			throw socket_exception("Socket has already been shut down");
+			throw socket_exception("Socket already shut down");
 		}
 
 		unique_ptr<char[]> buffer(new char[dest.size()]);
@@ -127,7 +127,7 @@ namespace libsocket {
 
 		ssize_t readd = read(sock.fd, buffer.get(), dest.size());
 		if (readd == -1) {
-			throw socket_exception("Could not read from socket");
+			throw socket_exception("Error reading from socket");
 		}
 		dest = buffer.get();
 		return sock;

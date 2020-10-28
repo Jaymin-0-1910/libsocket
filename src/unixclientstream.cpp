@@ -17,14 +17,14 @@ namespace libsocket {
 
 	void unix_stream_client::connect(const char *path, int flags) {
 		if (path == NULL) {
-			throw socket_exception("Given path is NULL");
+			throw socket_exception("Null path given");
 		}
 		if (fd != -1) {
-			throw socket_exception("Socket is already connected");
+			throw socket_exception("Socket already connected");
 		}
 		fd = create_socket(path, flags);
 		if (fd < 0) {
-			throw socket_exception("Could not create and connect socket");
+			throw socket_exception("Error creating and connecting socket");
 		}
 		_path = path;
 		shut_rd = false;

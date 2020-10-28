@@ -13,7 +13,7 @@ int create_socket(const char *path, int flags) {
 	if (path == NULL) {
 		return -1;
 	}
-	if (strlen(path) > sizeof(((struct sockaddr_un*) 0)->sun_path) - 1) {
+	if (strlen(path) > sizeof(((struct sockaddr_un *) 0)->sun_path) - 1) {
 		return -1;
 	}
 
@@ -28,7 +28,7 @@ int create_socket(const char *path, int flags) {
 	addr.sun_family = AF_LOCAL;
 	strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1);
 
-	if (connect(fd, (struct sockaddr*) &addr, sizeof(addr.sun_family) + strlen(addr.sun_path))) {
+	if (connect(fd, (struct sockaddr *) &addr, sizeof(addr.sun_family) + strlen(addr.sun_path))) {
 		close(fd);
 		return -1;
 	}
@@ -68,7 +68,7 @@ int create_server_socket(const char *path, int flags) {
 	if (path == NULL) {
 		return -1;
 	}
-	if (strlen(path) > sizeof(((struct sockaddr_un*) 0)->sun_path) - 1) {
+	if (strlen(path) > sizeof(((struct sockaddr_un *) 0)->sun_path) - 1) {
 		return -1;
 	}
 
@@ -89,7 +89,7 @@ int create_server_socket(const char *path, int flags) {
 		}
 	}
 
-	if (bind(fd, (struct sockaddr*) &addr, sizeof(addr.sun_family) + strlen(addr.sun_path)) < 0) {
+	if (bind(fd, (struct sockaddr *) &addr, sizeof(addr.sun_family) + strlen(addr.sun_path)) < 0) {
 		return close(fd), -1;
 	}
 	if (listen(fd, LIBSOCKET_BACKLOG) < 0) {

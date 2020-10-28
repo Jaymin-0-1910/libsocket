@@ -2,16 +2,16 @@
 
 ## Requirements
 
-1. Android NDK r20 or up
+1. Windows machine with PowerShell
+2. Fairly modern Android NDK
 
 ## Building
 
-1. Export NDK path to `ANDROID_NDK_HOME` variable
-2. Run `build.sh` script in root of project folder
+1. Export NDK path to `$Env:AndroidNDKHome` variable
+2. Run `build.ps1` script from root of this folder
 
-Binaries will be placed in `out/` folder and errors, if any, logged in `out/build.log`
-file.
+Results will be placed in `out/` folder.
 
 ## Legal
 
-See file LICENSE in project root for licensing information.
+See file LICENSE for license information.
