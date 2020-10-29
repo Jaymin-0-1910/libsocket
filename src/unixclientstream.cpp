@@ -24,7 +24,7 @@ namespace libsocket {
 		}
 		fd = create_socket(path, flags);
 		if (fd < 0) {
-			throw socket_exception("libsocket: Error creating and connecting socket");
+			throw socket_exception("libsocket: Error creating socket");
 		}
 		_path = path;
 		shut_rd = false;

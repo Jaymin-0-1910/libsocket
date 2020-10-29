@@ -13,7 +13,7 @@ namespace libsocket {
 
 	ssize_t stream_client_socket::send(const void *buf, size_t len, int flags) {
 		if (buf == NULL || len == 0) {
-			throw socket_exception("libsocket: Null buffer/length given");
+			throw socket_exception("libsocket: Null buffer given");
 		}
 		if (fd == -1) {
 			throw socket_exception("libsocket: Socket not connected");
@@ -30,7 +30,7 @@ namespace libsocket {
 
 	ssize_t stream_client_socket::recv(void *buf, size_t len, int flags) {
 		if (buf == NULL || len == 0) {
-			throw socket_exception("libsocket: Null buffer/length given");
+			throw socket_exception("libsocket: Null buffer given");
 		}
 		if (fd == -1) {
 			throw socket_exception("libsocket: Socket not connected");
@@ -72,7 +72,7 @@ namespace libsocket {
 		}
 
 		if (::shutdown(fd, _method) < 0) {
-			throw socket_exception("libsocket: Error shutting socket down");
+			throw socket_exception("libsocket: Error shutting down socket");
 		}
 		if (method & LIBSOCKET_READ) {
 			shut_rd = true;
