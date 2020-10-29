@@ -30,7 +30,7 @@ Function Build {
 			cmd /C "$Compiler" -c -O2 -fno-rtti -fomit-frame-pointer "$SrcDir\$_" -o ".\$_.o"
 		}
 	}
-	cmd /C "$Archiver" -rcs ".\libsocket_$Arch.a" @(Get-ChildItem -File -Name -Include ".\*.o") #NOTE: I really don't like the way @(...) is used here, I'd rather want to use wildcard here as well. This line really pisses me off.
+	cmd /C "$Archiver" -rcs ".\libsocket_$Arch.a" @(Get-ChildItem -File -Name -Include "*.o") #NOTE: I really don't like the way @(...) is used here, I'd rather want to use wildcard here as well. This line really pisses me off.
 
 	Remove-Item -Force -Include "*.o" -Path ".\*"
 }
